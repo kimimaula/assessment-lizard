@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-function App() {
+function ListsPage() {
   const [posts, setPosts] = useState([]);
 
   const fetchData = async () => {
@@ -35,4 +35,4 @@ function App() {
   );
 }
 
-export default App;
+export default ListsPage;
