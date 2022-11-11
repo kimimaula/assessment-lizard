@@ -1,46 +1,90 @@
+// React
 import { useState, useEffect } from 'react';
 
+// Custom Components
 import Spinner from 'components/spinner';
 import ListCard from 'components/listCard';
-import Button from 'components/button';
 
+//services
 import Api from 'services/api';
 
+//styles
 import { ListContainer } from './styled';
 
+//Select components
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
+
+// routing
+import { useLocation, useNavigate } from 'react-router-dom';
+
+//component for parsing search url
+import queryString from 'query-string';
+
 const animatedComponents = makeAnimated();
 
 function ListsPage() {
-  const [posts, setPosts] = useState([]);
+  const [displayData, setDisplayData] = useState([]);
+  const [selectedCat, setSelectedCat] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  //handles updating query string
+  const handleCatQuery = async (values) => {
+    setSelectedCat(values);
+    const searchParams = values.map((v) => v.label);
+    const stringifiedData = queryString.stringify(searchParams, {
+      arrayFormat: 'comma',
+    });
+    await navigate({ search: stringifiedData });
+  };
+
+  // useEffect for getting inital post and populating categories
   useEffect(() => {
     const api = new Api();
-    const fetchData = async () => {
+    const displayData = async () => {
       setLoading(true);
       try {
         const { posts } = await api.getPosts();
         var categories = posts
           .map((post) => post.categories)
           .flatMap((post) => post);
-        const uniq = (items) => [...new Set(items)];
-        const categoryItems = uniq(categories.map((item) => item.name)).map(
-          (c) => {
-            return { value: c.toLowerCase(), label: c };
-          }
-        );
+        let uniq = (arr, field) => [
+          ...new Map(arr.map((item) => [item[field], item])).values(),
+        ];
+        const categoryItems = uniq(categories, 'name').map((c) => {
+          return { ...c, label: c.name, value: c.name.toLowerCase() };
+        });
         setCategories(categoryItems);
-        setPosts(posts);
+        const parsed = Object.values(queryString.parse(location.search));
+        const selectItem = parsed.map((v) => {
+          return { value: v.toLowerCase(), label: v };
+        });
+        setSelectedCat(selectItem);
+        if (parsed.length > 0) {
+          let filteredData = [];
+          for (let i = 0; i < posts.length; i++) {
+            for (let index = 0; index < posts[i].categories.length; index++) {
+              if (parsed.includes(posts[i].categories[index].name)) {
+                filteredData.push(posts[i]);
+              }
+            }
+          }
+          setDisplayData(uniq(filteredData, 'id'));
+        } else {
+          setDisplayData(posts);
+        }
       } catch (error) {
-        console.log('----error');
+        console.log('----error', error);
       }
       setLoading(false);
     };
-    fetchData();
-  }, []);
+    displayData();
+  }, [location.search]);
+
   return (
     <div>
       {loading ? (
@@ -49,13 +93,14 @@ function ListsPage() {
         <ListContainer>
           <Select
             closeMenuOnSelect={true}
+            defaultValue={selectedCat}
+            onChange={handleCatQuery}
             components={animatedComponents}
             isMulti
             options={categories}
           />
-          <Button label="Search" />
-          {posts &&
-            posts?.map((p) => {
+          {displayData &&
+            displayData?.map((p) => {
               return <ListCard key={p.id} post={p} />;
             })}
         </ListContainer>
