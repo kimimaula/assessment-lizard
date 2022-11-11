@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
 
 /**
  * This file can be ignored, please work in ./components/App.jsx
@@ -13,13 +12,11 @@ import './mock';
 import './styles/index.css';
 
 // Include application component.
-import Router from 'router';
+import App from './App';
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Router />
-    </BrowserRouter>
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
