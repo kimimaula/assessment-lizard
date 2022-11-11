@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Spinner from 'components/spinner';
 
 function ListsPage() {
   const [posts, setPosts] = useState([]);
@@ -15,6 +16,7 @@ function ListsPage() {
   }, []);
   return (
     <div>
+      <Spinner />
       {posts?.map((p) => {
         return (
           <div key={p.id}>
