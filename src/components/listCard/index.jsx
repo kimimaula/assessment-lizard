@@ -1,8 +1,10 @@
-import { Card, HeaderText, LabelText } from './styled';
+import { Card, LabelText } from './styled';
 
 import { useNavigate } from 'react-router-dom';
 
+// custom components
 import Categories from 'components/categories';
+import Title from 'components/Title';
 
 const ListCard = ({ post }) => {
   const navigate = useNavigate();
@@ -12,11 +14,11 @@ const ListCard = ({ post }) => {
         navigate(`/detail/${post.id}`);
       }}
     >
-      <HeaderText>Author</HeaderText>
+      <Title>Author</Title>
       <LabelText>{post.author.name}</LabelText>
-      <HeaderText>Title</HeaderText>
+      <Title>Title</Title>
       <LabelText>{post.title}</LabelText>
-      <HeaderText>Categories</HeaderText>
+      <Title>Categories</Title>
       <Categories post={post} />
     </Card>
   );

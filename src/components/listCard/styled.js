@@ -13,17 +13,8 @@ const Card = styled.div`
   }
 `;
 
-const HeaderText = styled.div`
-  margin: 10px 0 0 0;
-  font-weight: bold;
-  font-size: 15px;
-  @media screen and (max-width: 400px) {
-    font-size: 14px;
-  }
-`;
-
 const LabelText = styled.div`
   font-size: 13px;
 `;
 
-export { Card, HeaderText, LabelText };
+export { Card, LabelText };

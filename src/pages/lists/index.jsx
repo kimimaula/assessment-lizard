@@ -137,6 +137,7 @@ function ListsPage() {
         <Spinner />
       ) : (
         <ListContainer>
+          <h1>Lizard Global Assessment</h1>
           <Select
             closeMenuOnSelect={true}
             defaultValue={selectedCat}
