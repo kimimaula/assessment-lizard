@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 // custom components
 import Categories from 'components/categories';
-import Title from 'components/Title';
+import Title from 'components/title';
 
 const ListCard = ({ post }) => {
   const navigate = useNavigate();

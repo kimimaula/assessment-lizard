@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 // Custom Components
 import Spinner from 'components/spinner';
 import ListCard from 'components/listCard';
-import Pagination from 'components/Pagination';
+import Pagination from 'components/pagination';
 
 //services
 import Api from 'services/api';
@@ -101,7 +101,17 @@ function ListsPage() {
           //looping through posts to see which object contains selected categories
           for (let i = 0; i < posts.length; i++) {
             for (let index = 0; index < posts[i].categories.length; index++) {
-              if (parsed.includes(posts[i].categories[index].name)) {
+              //check if more than 1 item is filtered
+              if (parsed.length > 1) {
+                const ar1 = parsed;
+                const ar2 = posts[i].categories.map((c) => {
+                  return c.name;
+                });
+                // check if filters meet all conditions
+                if (ar1.every((r) => ar2.includes(r))) {
+                  filteredData.push(posts[i]);
+                }
+              } else if (parsed.includes(posts[i].categories[index].name)) {
                 filteredData.push(posts[i]);
               }
             }
@@ -131,33 +141,48 @@ function ListsPage() {
     displayData();
   }, [location.search]);
 
+  if (loading) {
+    return <Spinner />;
+  }
+
+  if (displayData.length < 1) {
+    return (
+      <ListContainer>
+        <h1>Lizard Global Assessment</h1>
+        <Select
+          closeMenuOnSelect={true}
+          defaultValue={selectedCat}
+          onChange={handleCatQuery}
+          components={animatedComponents}
+          isMulti
+          options={categories}
+        />
+        <h2>Error...No Data Found</h2>
+      </ListContainer>
+    );
+  }
+
   return (
-    <div>
-      {loading ? (
-        <Spinner />
-      ) : (
-        <ListContainer>
-          <h1>Lizard Global Assessment</h1>
-          <Select
-            closeMenuOnSelect={true}
-            defaultValue={selectedCat}
-            onChange={handleCatQuery}
-            components={animatedComponents}
-            isMulti
-            options={categories}
-          />
-          {displayData &&
-            displayData?.map((p) => {
-              return <ListCard key={p.id} post={p} />;
-            })}
-          <Pagination
-            handlePageClick={handlePageClick}
-            itemsPerPage={itemsPerPage}
-            pageCount={pageCount}
-          />
-        </ListContainer>
-      )}
-    </div>
+    <ListContainer>
+      <h1>Lizard Global Assessment</h1>
+      <Select
+        closeMenuOnSelect={true}
+        defaultValue={selectedCat}
+        onChange={handleCatQuery}
+        components={animatedComponents}
+        isMulti
+        options={categories}
+      />
+      {displayData &&
+        displayData?.map((p) => {
+          return <ListCard key={p.id} post={p} />;
+        })}
+      <Pagination
+        handlePageClick={handlePageClick}
+        itemsPerPage={itemsPerPage}
+        pageCount={pageCount}
+      />
+    </ListContainer>
   );
 }
 
