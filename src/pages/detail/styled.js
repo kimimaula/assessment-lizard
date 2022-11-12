@@ -5,6 +5,9 @@ const DetailPageContainer = styled.div`
   border: 1px solid var(--light-grey);
   border-radius: 10px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  max-width: 50%;
+  margin-right: auto;
+  margin-left: auto;
 `;
 
 const DetailsHeader = styled.div`

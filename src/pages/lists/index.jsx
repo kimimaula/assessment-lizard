@@ -31,6 +31,7 @@ function ListsPage() {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
   const [itemOffset, setItemOffset] = useState(0);
+  const [transition, setTransition] = useState(true);
 
   const itemsPerPage = 5;
   const endOffset = itemOffset + itemsPerPage;
@@ -38,9 +39,11 @@ function ListsPage() {
 
   // Invoke when user click to request another page.
   const handlePageClick = (event) => {
+    setTransition(false);
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     const newOffset = (event.selected * itemsPerPage) % rawData.length;
     setItemOffset(newOffset);
+    setTransition(true);
   };
 
   //checks for uniqueness in array
@@ -175,7 +178,7 @@ function ListsPage() {
       />
       {displayData &&
         displayData?.map((p) => {
-          return <ListCard key={p.id} post={p} />;
+          return <ListCard transition={transition} key={p.id} post={p} />;
         })}
       <Pagination
         handlePageClick={handlePageClick}
