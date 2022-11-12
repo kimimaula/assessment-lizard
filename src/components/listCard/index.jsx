@@ -3,15 +3,23 @@ import {
   CategoriesTag,
   CategoriesTagContainer,
   HeaderText,
+  LabelText,
 } from './styled';
 
+import { useNavigate } from 'react-router-dom';
+
 const ListCard = ({ post }) => {
+  const navigate = useNavigate();
   return (
-    <Card>
+    <Card
+      onClick={() => {
+        navigate(`/detail/${post.id}`);
+      }}
+    >
       <HeaderText>Author</HeaderText>
-      <p>{post.author.name}</p>
+      <LabelText>{post.author.name}</LabelText>
       <HeaderText>Title</HeaderText>
-      <p>{post.title}</p>
+      <LabelText>{post.title}</LabelText>
       <HeaderText>Categories</HeaderText>
       <CategoriesTagContainer>
         {post?.categories?.map((c) => {
