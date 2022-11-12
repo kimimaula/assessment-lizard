@@ -6,6 +6,7 @@ const CategoriesTag = styled.div`
   border-radius: 15px;
   margin: 5px;
   color: black;
+  font-weight: 500;
   @media screen and (max-width: 400px) {
     min-width: 100px;
     padding: 5px;

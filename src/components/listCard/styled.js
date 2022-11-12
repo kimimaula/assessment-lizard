@@ -14,7 +14,7 @@ const Card = styled.div`
 `;
 
 const LabelText = styled.div`
-  font-size: 13px;
+  font-size: 14px;
 `;
 
 export { Card, LabelText };
