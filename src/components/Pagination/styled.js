@@ -18,7 +18,7 @@ const CustomPaginate = styled(ReactPaginate).attrs({
   }
   li a {
     -radius: 7px;
-    padding: 0.1rem 1rem;
+    padding: 0.1rem 0.75rem;
     cursor: pointer;
     @media screen and (max-width: 400px) {
       padding: 0.1rem 0.5rem;

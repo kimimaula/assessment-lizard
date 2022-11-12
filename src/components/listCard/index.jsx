@@ -1,12 +1,8 @@
-import {
-  Card,
-  CategoriesTag,
-  CategoriesTagContainer,
-  HeaderText,
-  LabelText,
-} from './styled';
+import { Card, HeaderText, LabelText } from './styled';
 
 import { useNavigate } from 'react-router-dom';
+
+import Categories from 'components/categories';
 
 const ListCard = ({ post }) => {
   const navigate = useNavigate();
@@ -21,11 +17,7 @@ const ListCard = ({ post }) => {
       <HeaderText>Title</HeaderText>
       <LabelText>{post.title}</LabelText>
       <HeaderText>Categories</HeaderText>
-      <CategoriesTagContainer>
-        {post?.categories?.map((c) => {
-          return <CategoriesTag key={c.id}>{c.name}</CategoriesTag>;
-        })}
-      </CategoriesTagContainer>
+      <Categories post={post} />
     </Card>
   );
 };

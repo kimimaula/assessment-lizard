@@ -1,6 +1,15 @@
 :root {
   --clr-blue: #3699ff;
   --light-grey: #d3d3d3;
+  --clr-yellow: #fff100;
+  --clr-orange: #ff8c00;
+  --clr-red: #e81123;
+  --clr-magenta: #ec008c;
+  --clr-purple: #cbc3e3;
+  --clr-cyan: #00bcf2;
+  --clr-teal: #00b294;
+  --clr-green: #009e49;
+  --clr-lime: #bad80a;
 }
 
 body {
