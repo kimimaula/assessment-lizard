@@ -75,6 +75,8 @@ function ListsPage() {
   useEffect(() => {
     const api = new Api();
     const displayData = async () => {
+      //fix bug for offset caching and displaying no data
+      setItemOffset(0);
       setLoading(true);
       try {
         //getting posts from api
@@ -140,7 +142,7 @@ function ListsPage() {
       setLoading(false);
     };
     displayData();
-  }, [location.search]);
+  }, [location]);
 
   if (loading) {
     return <Spinner />;
