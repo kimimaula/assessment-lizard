@@ -22,6 +22,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 //component for parsing search url
 import queryString from 'query-string';
 
+// utility function
+import { uniq } from 'utilities/uniq';
+
 const animatedComponents = makeAnimated();
 
 function ListsPage() {
@@ -45,11 +48,6 @@ function ListsPage() {
     setItemOffset(newOffset);
     setTransition(true);
   };
-
-  //checks for uniqueness in array
-  const uniq = (arr, field) => [
-    ...new Map(arr.map((item) => [item[field], item])).values(),
-  ];
 
   const location = useLocation();
   const navigate = useNavigate();

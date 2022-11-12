@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const DetailPageContainer = styled.div`
   margin: 30px;
-  border: 1px solid var(--light-grey);
+  border: 1px solid var(--clr-lightGrey);
   border-radius: 10px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   max-width: 50%;
@@ -32,7 +32,7 @@ const Avatar = styled.img`
   width: 100px;
   height: 100px;
   border-radius: 20px;
-  border: 1px solid var(--light-grey);
+  border: 1px solid var(--clr-lightGrey);
 `;
 
 const AvatarContainer = styled.div`

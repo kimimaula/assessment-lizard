@@ -14,19 +14,21 @@ const ListCard = ({ post, transition }) => {
   const [inProp, setInProp] = useState(false);
   const duration = 500;
 
+  // animation config
   const defaultStyle = {
     transition: `opacity ${duration}ms ease-in-out`,
     opacity: 0,
   };
-
   const transitionStyles = {
     entering: { opacity: 1 },
     entered: { opacity: 1 },
     exiting: { opacity: 0 },
     exited: { opacity: 0 },
   };
+
   const navigate = useNavigate();
   const nodeRef = useRef(null);
+
   useEffect(() => {
     setInProp(transition);
   }, [transition]);

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const Card = styled.div`
-  border: 1px solid var(--light-grey);
+  border: 1px solid var(--clr-lightGrey);
   margin: 12px 0;
   padding: 10px;
   cursor: pointer;
