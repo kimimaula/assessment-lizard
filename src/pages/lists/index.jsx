@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 // Custom Components
 import Spinner from 'components/spinner';
 import ListCard from 'components/listCard';
+import Pagination from 'components/Pagination';
 
 //services
 import Api from 'services/api';
@@ -14,7 +15,6 @@ import { ListContainer } from './styled';
 //External components
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
-import ReactPaginate from 'react-paginate';
 
 // routing
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -38,6 +38,7 @@ function ListsPage() {
 
   // Invoke when user click to request another page.
   const handlePageClick = (event) => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     const newOffset = (event.selected * itemsPerPage) % rawData.length;
     setItemOffset(newOffset);
   };
@@ -148,14 +149,10 @@ function ListsPage() {
             displayData?.map((p) => {
               return <ListCard key={p.id} post={p} />;
             })}
-          <ReactPaginate
-            breakLabel="..."
-            nextLabel="next >"
-            onPageChange={handlePageClick}
-            pageRangeDisplayed={itemsPerPage}
+          <Pagination
+            handlePageClick={handlePageClick}
+            itemsPerPage={itemsPerPage}
             pageCount={pageCount}
-            previousLabel="< previous"
-            renderOnZeroPageCount={null}
           />
         </ListContainer>
       )}
