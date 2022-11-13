@@ -78,6 +78,7 @@ function ListsPage() {
       //fix bug for offset caching and displaying no data
       setItemOffset(0);
       setLoading(true);
+      setTransition(false);
       try {
         //getting posts from api
         const { posts } = await api.getPosts();
@@ -140,6 +141,7 @@ function ListsPage() {
         console.log('----error', error);
       }
       setLoading(false);
+      setTransition(true);
     };
     displayData();
   }, [location]);
